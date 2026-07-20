@@ -1,0 +1,16 @@
+[files]
+extend-exclude = []
+
+[default.extend-words]
+mis-wired = "mis-wired"
+mis-match = "mis-match"
+mis-route = "mis-route"
+
+[default.extend-identifiers]
+# CNCF in-toto attestation; default dictionary flags as typo of "into"
+intoto = "intoto"
+# `nebcli`, `nebguard`, `NebInfra`: brand names
+nebcli = "nebcli"
+nebguard = "nebguard"
+nebinfra = "nebinfra"
+NebInfra = "NebInfra"

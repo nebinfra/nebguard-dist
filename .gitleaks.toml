@@ -1,0 +1,12 @@
+title = "gitleaks config for NebInfra public repos"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist for cosign public keys and test fixtures"
+paths = [
+  "cosign-keys/.*\\.pub$",
+  "test/fixtures/.*",
+  ".*-prod\\.pub$",
+]

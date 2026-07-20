@@ -1,0 +1,86 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+
+permissions:
+  contents: read
+  pull-requests: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: lint + format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: typos
+        uses: crate-ci/typos@v1.48.0
+        with:
+          config: ./_typos.toml
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@6bf21b07787794f89a243495939cd651942aeabe # v24.1.0
+        with:
+          globs: '**/*.md'
+
+      - name: yamllint
+        if: hashFiles('**/*.yaml', '**/*.yml') != ''
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: ./.yamllint.yml
+          strict: true
+
+      - name: shellcheck
+        if: hashFiles('*.sh', '_lib/*.sh', 'install') != ''
+        uses: ludeeus/action-shellcheck@2.0.0
+        env:
+          SHELLCHECK_OPTS: --severity=warning
+
+      - name: license-and-readme-exist
+        run: |
+          test -f LICENSE || { echo "::error::LICENSE file required"; exit 1; }
+          test -f README.md || { echo "::error::README.md required"; exit 1; }
+
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks
+        run: |
+          version=8.30.1
+          arch=$(uname -m); case "$arch" in x86_64) arch=x64 ;; aarch64|arm64) arch=arm64 ;; esac
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${version}/gitleaks_${version}_linux_${arch}.tar.gz" | tar -xz -C /tmp gitleaks
+          /tmp/gitleaks dir . --no-banner --redact --config .gitleaks.toml --verbose --exit-code 1
+
+  links:
+    name: link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: lychee
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: |
+            --verbose
+            --no-progress
+            --cache
+            --max-cache-age 1d
+            --accept 200,206,403,429
+            './**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

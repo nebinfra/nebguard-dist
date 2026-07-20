@@ -1,0 +1,21 @@
+default: true
+
+# Line length (MD013): disabled. README prose intentionally keeps full
+# sentences on single lines for clean diffs; reflowing adds no value here.
+MD013: false
+
+# Multiple consecutive blank lines (MD012): allow up to 2
+MD012:
+  maximum: 2
+
+# First line not heading (MD041): not all README files start with a heading
+MD041: false
+
+# No emphasis as heading (MD036): false-positives on bold field names
+MD036: false
+
+# Disallow bare URLs (MD034): too strict for technical content
+MD034: false
+
+# Disallow inline HTML (MD033): needed for badges + collapse sections
+MD033: false
