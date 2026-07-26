@@ -189,7 +189,7 @@ are that dashboard.
 
 **Overview: enforcement posture and savings at a glance.**
 
-![NebGuard dashboard Overview tab, showing 1,075 actions blocked, 3,435 guidance notes, and 49 sessions protected, an estimated $18,455 and roughly 8.2M tokens saved, and a table of the rules that fired most.](assets/nebguard-overview.png)
+![NebGuard dashboard Overview tab, showing the actions blocked, guidance notes, and sessions protected, the estimated savings and tokens saved, and a table of the rules that fired most.](assets/nebguard-overview.png)
 
 **Activity: every guard decision, newest first, each row a full evidence record.**
 
