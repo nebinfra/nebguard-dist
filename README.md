@@ -60,10 +60,10 @@ engine and the same rules run on every one. Enable with `nebguard setup <assista
 | --- | --- | --- | --- |
 | **Claude Code** | Anthropic | ✅ Supported | `nebguard setup claude-code` |
 | **OpenAI Codex CLI** | OpenAI | ✅ Supported (one-time hook trust) | `nebguard setup codex-cli` |
-| GitHub Copilot CLI | GitHub | 🔜 Planned | — |
+| **GitHub Copilot CLI** | GitHub | ✅ Supported | `nebguard setup copilot-cli` |
 | Cursor | Anysphere | 🔜 Planned | — |
-| Gemini CLI | Google | 🔜 Planned | — |
-| opencode | opencode | 🔜 Planned | — |
+| **Gemini CLI** | Google | ✅ Supported | `nebguard setup gemini-cli` |
+| **opencode** | Anomaly | ✅ Supported | `nebguard setup opencode` |
 | Continue | Continue | 🔜 Planned | — |
 | Amazon Q Developer CLI | AWS | 🔜 Planned | — |
 | Qwen Code | Alibaba | 🔜 Planned | — |
@@ -579,6 +579,9 @@ NebGuard behaves the same across every supported assistant. Each is enabled with
 | --- | --- | --- | --- | --- |
 | [Claude Code](#claude-code) | Anthropic | Supported | `nebguard setup claude-code` | None |
 | [Codex CLI](#codex-cli) | OpenAI | Supported | `nebguard setup codex-cli` | One-time hook trust |
+| GitHub Copilot CLI | GitHub | Supported | `nebguard setup copilot-cli` | Headless environment setting |
+| Gemini CLI | Google | Supported | `nebguard setup gemini-cli` | None |
+| opencode | Anomaly | Supported | `nebguard setup opencode` | None |
 
 Support for more hook-capable assistants is on the [roadmap](#roadmap).
 
@@ -625,7 +628,7 @@ top of that stable core.
 
 | Capability | What it adds |
 | --- | --- |
-| **More assistants** | Claude Code and Codex CLI are supported today. Planned, in rough order of popularity: GitHub Copilot CLI, Cursor, Gemini CLI, opencode, Continue, Amazon Q Developer CLI, and Qwen Code. |
+| **More assistants** | Claude Code, Codex CLI, GitHub Copilot CLI, Gemini CLI, and opencode are supported today. Planned, in rough order of popularity: Cursor, Continue, Amazon Q Developer CLI, and Qwen Code. |
 | **Rule authoring and testing kit** | Dry-run a rule against sample commands and files, and lint a pack before you ship it, so writing your own rules and contributing packs is fast and safe. |
 | **Team and organization policy packs** | Publish one governed rule set for your organization and have every member's NebGuard pull it automatically, so a whole team shares the same guardrails with no hand-configuration. |
 | **Compliance evidence and reports** | Turn the tamper-evident audit log into exportable reports mapped to common frameworks such as SOC 2, ISO 27001, and HIPAA, so the decisions NebGuard already records become audit-ready evidence. |
