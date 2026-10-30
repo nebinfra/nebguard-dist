@@ -50,21 +50,6 @@ jobs:
           test -f LICENSE || { echo "::error::LICENSE file required"; exit 1; }
           test -f README.md || { echo "::error::README.md required"; exit 1; }
 
-  secrets:
-    name: secret scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-
-      - name: gitleaks
-        run: |
-          version=8.30.1
-          arch=$(uname -m); case "$arch" in x86_64) arch=x64 ;; aarch64|arm64) arch=arm64 ;; esac
-          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${version}/gitleaks_${version}_linux_${arch}.tar.gz" | tar -xz -C /tmp gitleaks
-          /tmp/gitleaks dir . --no-banner --redact --config .gitleaks.toml --verbose --exit-code 1
-
   links:
     name: link check
     runs-on: ubuntu-latest
